@@ -63,7 +63,8 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input class="form-control" type="number" placeholder="e.g. $100.00"> 
+                                <form name="myForm" onsubmit="return validate()" required>
+                                    <input class="form-control" type="number" name="amount" placeholder="e.g. $100.00"> 
                             </div>
                         </div>
                     </div>
@@ -71,40 +72,58 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Card Holder Name"> 
+                                <input class="form-control" type="text" name="cardName" placeholder="Card Holder Name" onkeydown="return /[a-z ]/i.test(event.key)">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input class="form-control" type="number" placeholder="Card Number">
+                                <input class="form-control" type="number" name="cardNum" placeholder="Card Number">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input class="form-control" type="number" min="1" placeholder="Security Code"> 
+                                <input class="form-control" type="number" name="code" min="1" placeholder="Security Code"> 
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group">
-                                <input class="form-control" type="text" placeholder="Card Expiration Date"> 
+                                <input class="form-control" type="date" placeholder="Card Expiration Date"> 
                             </div>
                         </div>
                     </div>
                     <div class="d-flex flex-column mt-3 mb-1"> 
-                        <a href="confirm.html" class="cta">
-                            <button class="btn btn-primary confirm" style="margin-left:-20px;">Confirm Donation</button>
-                        </a>
+                        <button class="btn btn-primary confirm" style="margin-left:-20px;" value="Submit">Confirm Donation</button>
+                        </form>
                     </div> 
                 </div>
             </div>
         </div>
     </section>
+
+    <script>
+        function validate(){
+            var amount = document.forms["myForm"]["amount"].value;
+            var cardName = document.forms["myForm"]["cardName"].value;
+            var cardNum = document.forms["myForm"]["cardNum"].value;
+            var code = document.forms["myForm"]["code"].value;
+            if (amount == null || amount == "" || cardName == null || cardName == "" || cardNum == null || cardNum == "" || code == null || code == ""){
+                alert("Please fill all fields.");
+                return false;
+            }
+            else {
+                if (confirm("Finalize Donation?")){
+                    window.location.assign("confirm.html");
+                    return false;
+                }
+            }
+        }
+    </script>
 
 </body>
 </html>
